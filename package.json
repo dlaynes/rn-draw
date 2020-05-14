@@ -17,17 +17,15 @@
     "android",
     "ios",
     "mobile",
-    "expo",
     "sketch",
     "signaturepad"
   ],
   "author": "Jack Zhang <j@ckzhang.com>",
   "bugs": {
-    "url" : "https://github.com/jayeszee/rn-draw/issues"
+    "url": "https://github.com/jayeszee/rn-draw/issues"
   },
   "license": "MIT",
   "peerDependencies": {
-    "expo": "*",
     "react": "*",
     "react-native": "*",
     "react-native-svg": "*"
