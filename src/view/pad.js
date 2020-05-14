@@ -1,6 +1,6 @@
 import React from "react";
 import { View, PanResponder, StyleSheet, Platform } from "react-native";
-import { G, Surface, Path } from "react-native-svg";
+import Svg, { G, Surface, Path } from "react-native-svg";
 import Pen from "../tools/pen";
 import Point from "../tools/point";
 const { OS } = Platform;
