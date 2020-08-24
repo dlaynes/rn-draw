@@ -67,7 +67,7 @@ export default class DrawPad extends React.Component {
     color: "#000000",
     containerStyle: null,
     lineGenerator: null,
-
+    
     onChangeStrokes: () => { },
     onRewind: () => { },
     onClear: () => { },
@@ -89,7 +89,15 @@ export default class DrawPad extends React.Component {
       onPanResponderMove: (evt, gs) => this.onResponderMove(evt, gs),
       onPanResponderRelease: (evt, gs) => this.onResponderRelease(evt, gs),
     });
+    
+    const rewind = props.rewind || function (){}
+    const clear = props.clear || function (){}
+    this._clientEvents = {
+      rewind: rewind(this.rewind),
+      clear: clear(this.clear),
+    }
   }
+
   /****************************************************************************************************/
   shouldComponentUpdate(nextProps, nextState) {
     if (this.state.previousStrokes !== nextState.previousStrokes) { return true; }
