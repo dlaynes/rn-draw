@@ -67,7 +67,7 @@ export default class DrawPad extends React.Component {
     color: "#000000",
     containerStyle: null,
     lineGenerator: null,
-    
+
     onChangeStrokes: () => { },
     onRewind: () => { },
     onClear: () => { },
@@ -75,6 +75,7 @@ export default class DrawPad extends React.Component {
   /**************************************************/
   constructor(props, context) {
     super(props, context);
+    this.svgRef = React.createRef();
     this.state = {
       currentPoints: [],
       previousStrokes: this.props.strokes || [],
@@ -89,12 +90,14 @@ export default class DrawPad extends React.Component {
       onPanResponderMove: (evt, gs) => this.onResponderMove(evt, gs),
       onPanResponderRelease: (evt, gs) => this.onResponderRelease(evt, gs),
     });
-    
-    const rewind = props.rewind || function (){}
-    const clear = props.clear || function (){}
+
+    const rewind = props.rewind || function (){};
+    const saveImage = props.saveImage || function (){};
+    const clear = props.clear || function (){};
     this._clientEvents = {
       rewind: rewind(this.rewind),
       clear: clear(this.clear),
+      saveImage: saveImage(this.saveImage)
     }
   }
 
@@ -156,6 +159,12 @@ export default class DrawPad extends React.Component {
 
     this.state.pen.clear();
   }
+
+  //After: Function(base64str){}
+  saveImage = (after) => {
+    this.svgRef.toDataURL(after);
+  }
+
   /**************************************************/
   exportToSVG = () => {
     const strokes = [...this.state.previousStrokes];
@@ -273,7 +282,7 @@ export default class DrawPad extends React.Component {
           this.props.containerStyle,
         ]}>
         <View style={styles.svgContainer} {...this._panResponder.panHandlers}>
-          <Svg style={styles.drawSurface}>
+          <Svg style={styles.drawSurface} ref={this.myRef}>
             <G>
               {previousStrokes.map((stroke, index) => {
                 return this._renderSvgElement(stroke, index);
