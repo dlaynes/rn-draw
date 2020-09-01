@@ -91,14 +91,6 @@ export default class DrawPad extends React.Component {
       onPanResponderRelease: (evt, gs) => this.onResponderRelease(evt, gs),
     });
 
-    const rewind = props.rewind || function (){};
-    const saveImage = props.saveImage || function (){};
-    const clear = props.clear || function (){};
-    this._clientEvents = {
-      rewind: rewind(this.rewind),
-      clear: clear(this.clear),
-      saveImage: saveImage(this.saveImage)
-    }
   }
 
   /****************************************************************************************************/
@@ -162,7 +154,8 @@ export default class DrawPad extends React.Component {
 
   //After: Function(base64str){}
   saveImage = (after) => {
-    this.svgRef.current.toDataURL(after);
+    //console.log("Svg ref",this.svgRef);
+    this.svgRef.toDataURL(after);
   }
 
   /**************************************************/
@@ -270,6 +263,11 @@ export default class DrawPad extends React.Component {
 
     return null;
   }
+
+  getSvgRef = (ref) => {
+    this.svgRef = ref;
+  }
+
   /**************************************************/
   render() {
     const { previousStrokes = [] } = this.state;
@@ -282,7 +280,7 @@ export default class DrawPad extends React.Component {
           this.props.containerStyle,
         ]}>
         <View style={styles.svgContainer} {...this._panResponder.panHandlers}>
-          <Svg style={styles.drawSurface} ref={this.myRef}>
+          <Svg style={styles.drawSurface} ref={this.getSvgRef}>
             <G>
               {previousStrokes.map((stroke, index) => {
                 return this._renderSvgElement(stroke, index);
