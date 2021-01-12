@@ -36,6 +36,7 @@ let styles = StyleSheet.create({
   },
   drawSurface: {
     flex: 1,
+    backgroundColor: '#FFFFFF'
   },
 });
 
