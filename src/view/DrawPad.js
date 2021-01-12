@@ -153,9 +153,9 @@ export default class DrawPad extends React.Component {
   }
 
   //After: Function(base64str){}
-  saveImage = (after) => {
+  saveImage = (after, options = {}) => {
     //console.log("Svg ref",this.svgRef);
-    this.svgRef.toDataURL(after);
+    this.svgRef.toDataURL(after, options);
   }
 
   /**************************************************/
